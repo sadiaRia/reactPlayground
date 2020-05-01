@@ -1,6 +1,7 @@
 import React from 'react'
-
+import { useFormik } from 'formik';
 function Form() {
+  const formik = useFormik({})
   return (
     <div>
       <label htmlFor='name'>Name</label>
