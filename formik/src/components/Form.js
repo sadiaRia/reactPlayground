@@ -1,17 +1,41 @@
 import React from 'react'
 import { useFormik } from 'formik';
+
+const initialValues = {
+  name: '',
+  email: '',
+  channel: ''
+};
+
+const onSubmit = value => {
+  console.log('formik value', value);
+};
+
+const validate = value => {
+  let errors = {};
+  if (!value.name) {
+    errors.name = 'required';
+  }
+  if (!value.email) {
+    errors.email = 'required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email){
+    errors.email = 'Invalid email format';
+  }
+  if (!value.channel) {
+    errors.channel = 'required';
+  }
+  return errors;
+}
+
 function Form() {
   const formik = useFormik({
-    initialValues: {
-      name: '',
-      email: '',
-      channel: ''
-    },
-    onSubmit: value => {
-      console.log('formik value', value);
-    }
+    initialValues,
+    onSubmit,
+    validate
   })
+
   // console.log('formik values', formik.values);
+
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
