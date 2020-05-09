@@ -1,5 +1,6 @@
 import React from 'react'
 import { useFormik } from 'formik';
+import * as yup from 'yup'; // for everything
 
 const initialValues = {
   name: '',
@@ -26,12 +27,18 @@ const validate = values => {
   }
   return errors;
 }
+const validationSchema = yup.object({
+  name: yup.string().required('This field is required'),
+  email: yup.string().email('Invalid email address').required('This field is required'),
+  channel: yup.string().required('This field is required'),
+})
 
 function Form() {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validate
+    // validate
+    validationSchema
   })
 
   // console.log('formik values', formik.values);
